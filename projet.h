@@ -8,4 +8,4 @@
 
 #define vprintf(...)(verbose ? printf(__VA_ARGS__) : 0)
 
-void mpiForScheduled(int nbTask, int chunk_min, int(*pointerWork)(int), int *resultatTab);
+void mpiForScheduled(int nbTask, int chunkMin, int (*pointerWork)(int), int *resultArray);
