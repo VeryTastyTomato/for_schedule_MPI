@@ -7,42 +7,44 @@ int work(int x)
     return x * x;
 }
 
-void printTableau(int *tab, int count)
+void printArray(int *array, int count)
 {
-    printf("array :\n");
     int i = 0;
 
-    for (i = 0 ; i < count ; ++i)
+    printf("Array:\n");
+
+    for (i = 0 ; i < count ; i++)
     {
         /* code */
-        printf("%d \n", tab[i]);
+        printf("%d \n", array[i]);
     }
 }
 
 int main(int argc, char **argv)
 {
     int rank;
+    int (*pointerWork)(int);
+
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    int(*pointerWork)(int);
     pointerWork = work;
 
     int nbTask = 11;
-    int chunk_min = 2;
+    int chunkMin = 2;
 
-    int *resultatTab = (int*)calloc(nbTask, sizeof(int));
+    int *resultArray = (int*) calloc(nbTask, sizeof(int));
 
-    mpiForScheduled(nbTask, chunk_min, pointerWork, resultatTab);
+    mpiForScheduled(nbTask, chunkMin, pointerWork, resultArray);
 
-    if (rank == 0)
+    if (0 == rank)
     {
-        printf("final result\n");
-        printTableau(resultatTab, nbTask);
+        printf("Final result:\n");
+        printArray(resultArray, nbTask);
     }
 
-    free(resultatTab);
+    free(resultArray);
     MPI_Finalize();
 
-    return 0;
+    return EXIT_SUCCESS;
 }
