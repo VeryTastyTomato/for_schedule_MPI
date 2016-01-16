@@ -1,11 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <mpi.h>
-#include <unistd.h>
-#include <time.h>
-#include <string.h>
-#include <stdarg.h>
+#ifndef DEF_PROJET
+#define DEF_PROJET
 
-#define vprintf(...)(verbose ? printf(__VA_ARGS__) : 0)
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <mpi.h>
+	#include <unistd.h>
+	#include <time.h>
+	#include <string.h>
+	#include <stdarg.h>
 
-void mpiForScheduled(int nbTask, int chunkMin, int (*pointerWork)(int), int *resultArray);
+	#define vprintf(...)(verbose ? printf(__VA_ARGS__) : 0)
+
+	void mpiForScheduled(int nbTask, int chunkMin, int (*pointerWork)(int), int *resultArray);
+
+#endif
